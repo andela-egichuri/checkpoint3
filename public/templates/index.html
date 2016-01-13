@@ -1,3 +1,16 @@
 {%extends 'base.html' %}
 
 {% block title %}Home{% endblock %}
+{% block toolbar %}
+    <h1>My Bucketlist App</h1>
+{% endblock %}
+{% block content %}
+
+<div flex layout="row">
+
+    <md-sidenav md-is-locked-open="true" class="md-whiteframe-z2"></md-sidenav>
+
+    <md-content flex id="content"></md-content>
+
+</div>
+{% endblock %}

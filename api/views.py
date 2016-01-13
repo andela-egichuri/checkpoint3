@@ -12,6 +12,9 @@ def index(request):
 @api_view(('GET',))
 def api_root(request, format=None):
     return Response({
-        'bucketlists': reverse('bucketlist-list', request=request, format=format),
-        'items': reverse('items-list', request=request, format=format),
+        'bucketlists': reverse(
+            'bucketlist-list', request=request, format=format
+        ),
+        'items': reverse('item-list', request=request, format=format),
+        'users': reverse('user-list', request=request, format=format),
     })

@@ -10,7 +10,9 @@ class Bucketlist(models.Model):
     name = models.CharField(max_length=30)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='bucketlists'
+    )
 
     def __unicode__(self):
         return '%s' % (self.name)

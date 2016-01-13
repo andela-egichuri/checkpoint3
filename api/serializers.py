@@ -3,34 +3,28 @@ from django.contrib.auth.models import User
 from .models import Bucketlist, Item
 
 
-class UserSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = User
-        fields = (
-            'url', 'username', 'first_name', 'last_name', 'email', 'password'
-        )
-
-
 class ItemSerializer(serializers.ModelSerializer):
+    """Item model serializer"""
+
+    bucketlist = serializers.ReadOnlyField(
+        source='bucketlist.name'
+    )
 
     class Meta:
         model = Item
         fields = (
-            'name', 'date_created',
+            'url', 'name', 'date_created',
             'date_modified', 'bucketlist', 'done'
         )
 
 
 class BucketlistSerializer(serializers.ModelSerializer):
+    """Bucketlist model serializer"""
 
     items = serializers.SlugRelatedField(
         many=True, read_only=True, slug_field='name'
     )
-    # items_url = serializers.HyperlinkedIdentityField(
-    #     view_name='bucketlist-items-list',
-    #     lookup_url_kwarg='bucketlist_pk'
-    # )
+    created_by = serializers.ReadOnlyField(source='created_by.username')
 
     class Meta:
         model = Bucketlist
@@ -38,3 +32,30 @@ class BucketlistSerializer(serializers.ModelSerializer):
             'url', 'name', 'date_created',
             'date_modified', 'created_by', 'items'
         )
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """User model serializer"""
+
+    bucketlists = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='bucketlist-detail'
+    )
+
+    class Meta:
+        model = User
+        write_only_fields = ('password', 'email')
+        fields = (
+            'url', 'username', 'first_name',
+            'last_name', 'email', 'password', 'bucketlists'
+        )
+
+    def create(self, validated_data):
+        """Enable password hashing on API endpoint"""
+        user = User(
+            email=validated_data['email'], username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
