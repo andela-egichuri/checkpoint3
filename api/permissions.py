@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from .models import Item
 
 
 class IsOwner(permissions.BasePermission):
@@ -7,5 +8,6 @@ class IsOwner(permissions.BasePermission):
     """
 
     def has_object_permission(self, request, view, obj):
-        # Write permissions are only allowed to the owner of the snippet.
+        if isinstance(obj, Item):
+            return obj.bucketlist.created_by == request.user
         return obj.created_by == request.user

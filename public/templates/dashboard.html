@@ -1,0 +1,114 @@
+{%extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Dashboard{% endblock %}
+
+{% block toolbar %}
+<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+<ul id="dropdown1" class="dropdown-content">
+  <li class="divider"></li>
+  <li><a href="/logout">Logout</a></li>
+</ul>
+
+<ul class="right hide-on-med-and-down">
+  <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Welcome, {{ user.username }}<i class="material-icons right">arrow_drop_down</i></a></li>
+</ul>
+
+{% endblock %}
+
+{% block content %}
+<div ng-controller="dashboardCtrl">
+    <div class="section">
+        <div class="row">
+            <ul class="collapsible popout" data-collapsible="accordion">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">library_add</i></div>
+                  <div class="collapsible-body">
+                      <form ng-submit="add()">
+                          <div class="row">
+                              <div class="col s12 m6 offset-m3">
+                                <div class="input-field col s12">
+                                  <input id="b_name" type="text" ng-model="bl_name" class="validate" required>
+                                  <label for="b_name">Bucketlist Name</label>
+                              </div>
+                              <div class="input-field col s12">
+                                  <input type="submit" value="Save" class="waves-effect waves-green btn"/>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+
+              </div>
+          </li>
+      </ul>
+  </div>
+</div>
+<div class="section">
+    <div class="row">
+        <div class="col s12 center" ng-if="bucketlists.length == 0">
+            <div class="card-panel"> <i class="material-icons">info_outline</i>
+                Looks like you haven't created any bucketlists yet.
+            </div></div>
+            <div ng-repeat="bucketlist in bucketlists">
+                <div class="col s12 m6">
+                    <div class="card">
+                        <div class="card-content">
+
+                          <div class="card-title">
+                              [[ bucketlist.name ]]
+                              <div class="fixed-action-btn horizontal">
+                                  <a class="btn-floating btn blue lighten-3">
+                                    <i class="large material-icons">info_outline</i>
+                                </a>
+                                <ul>
+                                  <li><a ng-click="open(bucketlist.id)" class="btn-floating blue lighten-2"><i class="material-icons">open_with</i></a></li>
+                                  <li><a ng-click="edit(bucketlist.id)" class="btn-floating blue lighten-2 modal-trigger"><i class="material-icons">mode_edit</i></a></li>
+                                  <li><a ng-click="delete(bucketlist.id)" class="btn-floating blue lighten-2"><i class="material-icons">delete</i></a></li>
+                              </ul>
+                          </div>
+                      </div>
+
+                      <div class="small-text">
+                          <p>
+                              <span class="left">Date Created : [[ bucketlist.date_created | date: 'medium']] </span>
+                              <span class="right">Last Modified : [[ bucketlist.date_modified | date: 'medium' ]]</span><br><br>
+                          </p>
+                          <p>Number of items : [[ bucketlist.items.length ]] </p>
+                      </div>
+
+
+                  </div>
+              </div>
+          </div>
+
+
+      </div>
+      <div id="editmodal" class="modal modal-custom">
+          <div class="col s12">
+              <form ng-submit="save_edit()">
+                  <div class="modal-content">
+                      <h5>Edit Bucketlist</h5>
+                      <div class="input-field">
+                          <input id="bl_edit_name" type="text" class="validate" ng-model="bl_edit" required />
+                          <input id="bl_edit_id" type="hidden" class="validate" ng-model="bl_edit_id" required />
+                          <label for="bl_edit_name" class="active">New Bucketlist Name</label>
+                      </div>
+                      <p class="small-text">Previous name: <strong>[[ edit_name ]]</strong></p>
+                      <div class="input-field">
+                          <input type="submit" value="Save"  class="waves-effect waves-green btn"/>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+
+                  </div>
+              </form>
+          </div>
+
+      </div>
+
+  </div>
+</div>
+</div>
+<div ng-controller="viewCtrl">
+
+</div>
+{% endblock %}

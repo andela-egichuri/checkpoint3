@@ -14,6 +14,9 @@ class Bucketlist(models.Model):
         User, on_delete=models.CASCADE, related_name='bucketlists'
     )
 
+    class Meta:
+        ordering = ['-date_modified']
+
     def __unicode__(self):
         return '%s' % (self.name)
 
@@ -28,6 +31,9 @@ class Item(models.Model):
     bucketlist = models.ForeignKey(
         Bucketlist, on_delete=models.CASCADE, related_name='items'
     )
+
+    class Meta:
+        ordering = ['-date_modified']
 
     def __unicode__(self):
         return '%s' % (self.name)

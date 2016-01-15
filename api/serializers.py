@@ -6,16 +6,27 @@ from .models import Bucketlist, Item
 class ItemSerializer(serializers.ModelSerializer):
     """Item model serializer"""
 
-    bucketlist = serializers.ReadOnlyField(
-        source='bucketlist.name'
-    )
+    # bucketlist = serializers.ReadOnlyField(
+    #     source='bucketlist.name'
+    # )
 
     class Meta:
         model = Item
         fields = (
-            'url', 'name', 'date_created',
+            'id', 'url', 'name', 'date_created',
             'date_modified', 'bucketlist', 'done'
         )
+
+    def get_fields(self, *args, **kwargs):
+        fields = super(ItemSerializer, self).get_fields(*args, **kwargs)
+        if self.context:
+            user = self.context['request'].user
+            view = self.context['view']
+            bucketlists = Bucketlist.objects.filter(
+                created_by=user.id).values_list('id', flat=True)
+            fields['bucketlist'].queryset = fields['bucketlist'].queryset.filter(
+                id__in=bucketlists).all()
+        return fields
 
 
 class BucketlistSerializer(serializers.ModelSerializer):
@@ -29,7 +40,7 @@ class BucketlistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bucketlist
         fields = (
-            'url', 'name', 'date_created',
+            'id', 'url', 'name', 'date_created',
             'date_modified', 'created_by', 'items'
         )
 
@@ -47,7 +58,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         write_only_fields = ('password', 'email')
         fields = (
-            'url', 'username', 'first_name',
+            'id', 'url', 'username', 'first_name',
             'last_name', 'email', 'password', 'bucketlists'
         )
 
