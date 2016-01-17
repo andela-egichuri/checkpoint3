@@ -21,7 +21,7 @@
         <div class="row">
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li>
-                  <div class="collapsible-header"><i class="material-icons">library_add</i></div>
+                  <div class="collapsible-header"><i class="material-icons">library_add</i> New Bucketlist</div>
                   <div class="collapsible-body">
                       <form ng-submit="add()">
                           <div class="row">
@@ -52,30 +52,27 @@
                 <div class="col s12 m6">
                     <div class="card">
                         <div class="card-content">
-
                           <div class="card-title">
-                              [[ bucketlist.name ]]
+                             <a href="/bucketlists/[[bucketlist.id]]"> [[ bucketlist.name ]] </a>
                               <div class="fixed-action-btn horizontal">
                                   <a class="btn-floating btn blue lighten-3">
                                     <i class="large material-icons">info_outline</i>
                                 </a>
                                 <ul>
-                                  <li><a ng-click="open(bucketlist.id)" class="btn-floating blue lighten-2"><i class="material-icons">open_with</i></a></li>
+                                  <li><a href="/bucketlists/[[bucketlist.id]]" class="btn-floating green lighten-2"><i class="material-icons">open_with</i></a></li>
                                   <li><a ng-click="edit(bucketlist.id)" class="btn-floating blue lighten-2 modal-trigger"><i class="material-icons">mode_edit</i></a></li>
-                                  <li><a ng-click="delete(bucketlist.id)" class="btn-floating blue lighten-2"><i class="material-icons">delete</i></a></li>
+                                  <li><a ng-click="delete(bucketlist.id)" class="btn-floating red lighten-2"><i class="material-icons">delete</i></a></li>
                               </ul>
                           </div>
                       </div>
 
-                      <div class="small-text">
+                      <div class="tiny-text">
                           <p>
                               <span class="left">Date Created : [[ bucketlist.date_created | date: 'medium']] </span>
                               <span class="right">Last Modified : [[ bucketlist.date_modified | date: 'medium' ]]</span><br><br>
                           </p>
                           <p>Number of items : [[ bucketlist.items.length ]] </p>
                       </div>
-
-
                   </div>
               </div>
           </div>
@@ -88,11 +85,11 @@
                   <div class="modal-content">
                       <h5>Edit Bucketlist</h5>
                       <div class="input-field">
-                          <input id="bl_edit_name" type="text" class="validate" ng-model="bl_edit" required />
-                          <input id="bl_edit_id" type="hidden" class="validate" ng-model="bl_edit_id" required />
+                          <input id="bl_edit_name" type="text" class="validate" ng-model="bl_edit" placeholder="" required />
                           <label for="bl_edit_name" class="active">New Bucketlist Name</label>
+                          <input id="bl_edit_id" type="hidden" class="validate" ng-model="bl_edit_id" required />
+
                       </div>
-                      <p class="small-text">Previous name: <strong>[[ edit_name ]]</strong></p>
                       <div class="input-field">
                           <input type="submit" value="Save"  class="waves-effect waves-green btn"/>
                       </div>
@@ -108,7 +105,5 @@
   </div>
 </div>
 </div>
-<div ng-controller="viewCtrl">
 
-</div>
 {% endblock %}

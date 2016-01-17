@@ -35,9 +35,3 @@ class ItemViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     serializer_class = ItemSerializer
     permission_classes = (IsOwner, permissions.IsAuthenticated,)
 
-    def get_queryset(self):
-        user = self.request.user
-        bucketlists = Bucketlist.objects.filter(created_by=user.id)
-        if user.is_active:
-            return Item.objects.filter(bucketlist__in=bucketlists)
-        return Item.objects.all()

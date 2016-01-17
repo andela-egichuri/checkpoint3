@@ -38,9 +38,30 @@ main {
 
 }
 
+.done {
+  color: green;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.delete {
+  color: red;
+}
+
+.edit {
+  color: green;
+}
+
+.tiny-text {
+    font-size: 0.8em;
+    font-style: italic;
+    text-transform: capitalize;
+}
 
 .small-text {
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-style: italic;
     text-transform: capitalize;
 }

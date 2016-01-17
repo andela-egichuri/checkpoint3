@@ -15,7 +15,7 @@ class Bucketlist(models.Model):
     )
 
     class Meta:
-        ordering = ['-date_modified']
+        ordering = ['-date_created']
 
     def __unicode__(self):
         return '%s' % (self.name)
@@ -33,7 +33,7 @@ class Item(models.Model):
     )
 
     class Meta:
-        ordering = ['-date_modified']
+        ordering = ['-date_created']
 
     def __unicode__(self):
         return '%s' % (self.name)

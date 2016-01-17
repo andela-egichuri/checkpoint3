@@ -6,10 +6,6 @@ from .models import Bucketlist, Item
 class ItemSerializer(serializers.ModelSerializer):
     """Item model serializer"""
 
-    # bucketlist = serializers.ReadOnlyField(
-    #     source='bucketlist.name'
-    # )
-
     class Meta:
         model = Item
         fields = (

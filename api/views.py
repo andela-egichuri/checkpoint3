@@ -11,11 +11,21 @@ from .forms import LoginForm, RegistrationForm
 
 @login_required(login_url='/')
 def dashboard(request):
+    """App dashboard"""
     return render(request, 'dashboard.html', {})
+
+
+@login_required(login_url='/')
+def bucketlists(request, bucketid):
+    """Bucketlist Manipulation"""
+    data ={}
+    data['bucketid'] = bucketid
+    return render(request, 'bucketlists.html', data)
 
 
 @api_view(('GET',))
 def api_root(request, format=None):
+    """Browsable API root"""
     return Response({
         'bucketlists': reverse(
             'bucketlist-list', request=request, format=format
@@ -26,6 +36,7 @@ def api_root(request, format=None):
 
 
 def index(request):
+    """Handle login and registration"""
     if request.user.is_authenticated() and request.user.is_active:
         return HttpResponseRedirect('/dashboard')
 
@@ -59,8 +70,6 @@ def index(request):
 
 @login_required
 def user_logout(request):
-    # Since we know the user is logged in, we can now just log them out.
+    """Logout user and redirect to homepage"""
     logout(request)
-
-    # Take the user back to the homepage.
     return HttpResponseRedirect('/')
