@@ -18,7 +18,7 @@ def dashboard(request):
 @login_required(login_url='/')
 def bucketlists(request, bucketid):
     """Bucketlist Manipulation"""
-    data ={}
+    data = {}
     data['bucketid'] = bucketid
     return render(request, 'bucketlists.html', data)
 
