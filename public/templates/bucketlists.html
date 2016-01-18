@@ -23,7 +23,7 @@
         <div class="col s12 m10 offset-m1">
           <div class="">
             <div class="card-title center">Bucketlist: [[bucketlist_name]] </div>
-            <div class="col s12">
+            <div class="col s12 m10">
             <table class="striped">
                 <thead class="small-text" ng-if="bucketlist.length > 0">
                   <tr>
@@ -68,6 +68,12 @@
                   </div>
                 </form>
             </div>
+               <div class="col m2">
+                <p class="tiny-text"><i class="done tiny material-icons">done</i> Done (Click to mark as undone) </p>
+                <p class="tiny-text"><a href="" ><i class="tiny material-icons">clear</i> </a> Not yet done (Click to mark as done)</p>
+                <p class="tiny-text"><a href="" ><i class="tiny material-icons">mode_edit</i></a> Edit</p>
+                <p class="tiny-text"><i class="delete tiny material-icons">delete</i> Delete</p>
+              </div>
             <div id="itemmodal" class="modal modal-custom">
             <div class="col s12">
                 <form ng-submit="saveitem()">
