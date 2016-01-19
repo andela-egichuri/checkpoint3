@@ -1,8 +1,6 @@
 language: python
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
   - "3.4"
   - "3.5"
 
@@ -11,6 +9,8 @@ before_install:
 script:
   - ./manage.py test
   - coverage run --omit="*virtualenv*","bucketlist*","api/migrations/*" manage.py test
+services:
+  - postgresql
 env:
   global:
     - TRAVIS_BUILD=true

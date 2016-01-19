@@ -3,7 +3,10 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block toolbar %}
+<div class="row">
+
 <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+<div >
 <ul id="dropdown1" class="dropdown-content">
   <li class="divider"></li>
   <li><a href="/logout">Logout</a></li>
@@ -12,13 +15,16 @@
 <ul class="right hide-on-med-and-down">
   <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Welcome, {{ user.username }}<i class="material-icons right">arrow_drop_down</i></a></li>
 </ul>
-
+</div>
+</div>
 {% endblock %}
 
 {% block content %}
 <div ng-controller="dashboardCtrl">
     <div class="section">
         <div class="row">
+
+        <div class="col s12 m6 ">
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li>
                   <div class="collapsible-header"><i class="material-icons">library_add</i> New Bucketlist</div>
@@ -40,6 +46,12 @@
               </div>
           </li>
       </ul>
+      </div>
+      <div class="input-field col s12 m6 " style="margin-top: auto;">
+          <input id="search" type="search" ng-model="searchText" required>
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
   </div>
 </div>
 <div class="section">
@@ -47,8 +59,9 @@
         <div class="col s12 center" ng-if="bucketlists.length == 0">
             <div class="card-panel"> <i class="material-icons">info_outline</i>
                 Looks like you haven't created any bucketlists yet.
-            </div></div>
-            <div ng-repeat="bucketlist in bucketlists">
+            </div>
+          </div>
+            <div ng-repeat="bucketlist in bucketlists | filter:searchText">
                 <div class="col s12 m6">
                     <div class="card">
                         <div class="card-content">
@@ -79,8 +92,14 @@
 
 
       </div>
+      <div class="col s12 center">
 
-
+        <ul class="pagination">
+          <li ng-click="setpage(page-1)" ng-class="previous == null ? 'disabled' : 'waves-effect'"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+          <li ng-class="page == $index+1 ? 'active' : 'waves-effect'" ng-click="setpage($index+1)" ng-repeat="num in count track by $index"><a href="#!">[[ $index + 1 ]]</a></li>
+          <li ng-click="setpage(page+1)" ng-class="next == null ? 'disabled' : 'waves-effect'"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+      </div>
       <div id="editmodal" class="modal modal-custom">
           <div class="col s12">
               <form ng-submit="save_edit()">

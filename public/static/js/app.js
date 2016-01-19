@@ -12,6 +12,20 @@ app.config(function (RestangularProvider, $interpolateProvider, $httpProvider, $
     // $resourceProvider.defaults.stripTrailingSlashes = false;
     RestangularProvider.setBaseUrl('/api');
     RestangularProvider.setRequestSuffix('/');
+    RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+      var extractedData;
+      // .. to look for getList operations
+      if (operation === "getList") {
+        // .. and handle the data and meta data
+        extractedData = data.results;
+        extractedData.next = data.next;
+        extractedData.previous = data.previous;
+        extractedData.count = data.count;
+      } else {
+        extractedData = data;
+      }
+      return extractedData;
+    });
     // $routeProvider.
     //         when('/', {
     //             templateUrl : 'static/views/bucketlists.html',
@@ -128,21 +142,41 @@ app.controller('bucketlistCtrl', function($scope, Restangular, $window) {
 
 app.controller('dashboardCtrl', function($scope, Restangular, $window) {
     var bucketlist = Restangular.all('bucketlists');
-    bucketlist.getList().then(function(result) {
+    $scope.page = 1
+    $scope.count = [];
+    bucketlist.getList({page: $scope.page}).then(function(result) {
+        $scope.pages = Math.ceil(result.count / 10);
+        $scope.count = new Array($scope.pages);
         $scope.bucketlists = result;
+        $scope.next = result.next;
+        $scope.previous = result.previous
     });
+    $scope.refresh = function function_name () {
+        bucketlist.getList({page: $scope.page}).then(function(result) {
+            $scope.pages = Math.ceil(result.count / 10);
+            $scope.count = new Array($scope.pages);
+            $scope.bucketlists = result;
+            $scope.next = result.next;
+            $scope.previous = result.previous
+        });
+    }
+
+    $scope.setpage = function (value) {
+        if (value > 0 && value <= $scope.pages) {
+            $scope.page = value
+        }
+        $scope.refresh();
+    }
+
     $scope.add = function () {
         var newbucketlist= {
           name: $scope.bl_name,
         };
 
         bucketlist.post(newbucketlist).then(function(newbl) {
-          bucketlist.getList().then(function(result) {
-            $scope.bucketlists = result;
+            $scope.refresh();
             $scope.bl_name = "";
             angular.element('.collapsible-header').trigger('click');
-
-        })
         });
 
     }
@@ -162,9 +196,7 @@ app.controller('dashboardCtrl', function($scope, Restangular, $window) {
         if (resp) {
             todelete = Restangular.one('bucketlists', value);
             todelete.remove().then(function (result) {
-                Restangular.all('bucketlists').getList().then(function(data) {
-                    $scope.bucketlists = data;
-                });
+                $scope.refresh();
             });
         }
     }
@@ -174,9 +206,7 @@ app.controller('dashboardCtrl', function($scope, Restangular, $window) {
         tosave = Restangular.one('bucketlists', value);
         tosave.name = $scope.bl_edit;
         tosave.put().then(function (result) {
-            Restangular.all('bucketlists').getList().then(function(data) {
-                $scope.bucketlists = data;
-            });
+            $scope.refresh();
         });
         $scope.bl_edit = "";
         $('#editmodal').closeModal();

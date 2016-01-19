@@ -2,7 +2,8 @@ from rest_framework import viewsets
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from rest_framework_extensions.mixins import NestedViewSetMixin
-from permissions import IsOwner
+from rest_framework import filters
+from .permissions import IsOwner
 from .models import Bucketlist, Item
 from .serializers import UserSerializer, BucketlistSerializer, ItemSerializer
 
@@ -18,6 +19,8 @@ class BucketlistViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
     permission_classes = (IsOwner, permissions.IsAuthenticated,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name')
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)

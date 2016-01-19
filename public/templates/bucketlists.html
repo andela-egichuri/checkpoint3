@@ -38,10 +38,12 @@
                     <td class="small-text" ng-class="item.done == 1 ? 'line-through' : ''">[[ item.date_created | date: 'medium']]</td>
                     <td class="small-text" ng-class="item.done == 1 ? 'line-through' : ''">[[ item.date_modified | date: 'medium' ]]</td>
                     <td >
-                    <span ng-if="item.done == 1"><a href="" ng-click="status(item.id, item.done)" class="done"><i class="tiny material-icons">done</i></a></span>
-                    <span ng-if="item.done == 0"><a href="" ng-click="status(item.id, item.done)"><i class="tiny material-icons">clear</i></a></span> |
-                    <span><a href="" ng-click="edititem(item.id)"><i class="tiny material-icons">mode_edit</i></a> </span> |
-                    <span> <a href="" ng-click="delete(item.id)" class="delete"><i class="tiny material-icons">delete</i></a> </td>
+                    <span ng-if="item.done == 1">
+                    <a href="" ng-click="status(item.id, item.done)" class="done tooltipped" data-position="top" data-delay="50" data-tooltip="Mark as Not Done"><i class="tiny material-icons">done</i></a></span>
+                    <span ng-if="item.done == 0">
+                    <a href="" ng-click="status(item.id, item.done)" class="tooltipped" data-position="top" data-delay="50" data-tooltip="Mark as Done"><i class="tiny material-icons">clear</i></a></span> |
+                    <span><a href="" ng-click="edititem(item.id)" class="tooltipped" data-position="top"  data-delay="50" data-tooltip="Edit"><i class="tiny material-icons">mode_edit</i></a> </span> |
+                    <span> <a href="" ng-click="delete(item.id)" class="delete" data-position="top" data-delay="50" data-tooltip="Delete"><i class="tiny material-icons">delete</i></a> </td>
                 </tr>
                   <tr ng-if="bucketlist.length == 0">
                     <td colspan="4">
@@ -69,8 +71,8 @@
                 </form>
             </div>
                <div class="col m2">
-                <p class="tiny-text"><i class="done tiny material-icons">done</i> Done (Click to mark as undone) </p>
-                <p class="tiny-text"><a href="" ><i class="tiny material-icons">clear</i> </a> Not yet done (Click to mark as done)</p>
+                <p class="tiny-text"><i class="done tiny material-icons">done</i> Done </p>
+                <p class="tiny-text"><a href="" ><i class="tiny material-icons">clear</i> </a> Not yet done </p>
                 <p class="tiny-text"><a href="" ><i class="tiny material-icons">mode_edit</i></a> Edit</p>
                 <p class="tiny-text"><i class="delete tiny material-icons">delete</i> Delete</p>
               </div>

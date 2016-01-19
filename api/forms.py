@@ -24,7 +24,7 @@ class LoginForm(forms.Form):
 class RegistrationForm(forms.ModelForm):
     """Fields for the registration form"""
     error_messages = {
-        'password_mismatch': "The two password fields didn't match.",
+        'password_mismatch': "The two password fields don't match.",
     }
     conf_password = forms.CharField(
         max_length=32, widget=forms.PasswordInput(
@@ -56,4 +56,8 @@ class RegistrationForm(forms.ModelForm):
         if email and User.objects.filter(email=email).exclude(
                 username=username).count():
             raise forms.ValidationError(u'Email address exists.')
-        return email
+        return email.upper()
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        return username.upper()

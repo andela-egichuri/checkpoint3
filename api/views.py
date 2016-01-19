@@ -68,6 +68,26 @@ def index(request):
     return render(request, 'index.html', content)
 
 
+def user_login(request):
+    """Handle login"""
+    content = {}
+    content['login_form'] = LoginForm()
+
+    if request.method == 'POST' and request.POST['src'] == 'login':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+
+            user = authenticate(username=username, password=password)
+            if user:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect('/dashboard/')
+        content['messages'] = {'Error': 'Error logging in'}
+    return render(request, 'index.html', content)
+
+
 @login_required
 def user_logout(request):
     """Logout user and redirect to homepage"""

@@ -52,7 +52,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        write_only_fields = ('password', 'email')
+        extra_kwargs = {
+            'password': {'write_only': True}}
         fields = (
             'id', 'url', 'username', 'first_name',
             'last_name', 'email', 'password', 'bucketlists'
@@ -61,7 +62,8 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Enable password hashing on API endpoint"""
         user = User(
-            email=validated_data['email'], username=validated_data['username']
+            email=validated_data['email'].upper(),
+            username=validated_data['username'].upper()
         )
         user.set_password(validated_data['password'])
         user.save()

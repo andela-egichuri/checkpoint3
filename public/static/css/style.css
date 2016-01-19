@@ -82,3 +82,7 @@ main {
 .fixed-action-btn.horizontal ul {
     right: 50%;
 }
+
+.pagination li.active {
+    background-color: #90caf9 !important;
+}
