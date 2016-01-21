@@ -10,7 +10,6 @@ class TestUser(BaseTestCase):
         With correct login credentials a token should be returned and set the
         user online status as True.
         """
-        import ipdb; ipdb.set_trace()
 
     def test_wrong_login_credentials_fails(self):
         """Test login failure with wrong credentials.

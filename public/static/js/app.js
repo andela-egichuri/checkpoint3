@@ -145,15 +145,16 @@ app.controller('dashboardCtrl', function($scope, Restangular, $window) {
     $scope.page = 1
     $scope.count = [];
     bucketlist.getList({page: $scope.page}).then(function(result) {
-        $scope.pages = Math.ceil(result.count / 10);
+        $scope.pages = Math.ceil(result.count / 6);
         $scope.count = new Array($scope.pages);
         $scope.bucketlists = result;
         $scope.next = result.next;
         $scope.previous = result.previous
     });
-    $scope.refresh = function function_name () {
+
+    $scope.refresh = function () {
         bucketlist.getList({page: $scope.page}).then(function(result) {
-            $scope.pages = Math.ceil(result.count / 10);
+            $scope.pages = Math.ceil(result.count / 6);
             $scope.count = new Array($scope.pages);
             $scope.bucketlists = result;
             $scope.next = result.next;
