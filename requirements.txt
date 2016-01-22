@@ -1,5 +1,6 @@
 appnope==0.1.0
 coverage==4.0.3
+coveralls==1.1
 decorator==4.0.6
 dj-database-url==0.3.0
 dj-static==0.0.6
@@ -7,6 +8,7 @@ Django==1.9.1
 django-rest-swagger==0.3.4
 django-toolbelt==0.0.1
 djangorestframework==3.3.2
+docopt==0.6.2
 drf-extensions==0.2.8
 fake-factory==0.5.3
 gnureadline==6.3.3
@@ -20,6 +22,7 @@ pickleshare==0.5
 psycopg2==2.6.1
 ptyprocess==0.5
 PyYAML==3.11
+requests==2.9.1
 simplegeneric==0.8.1
 static3==0.6.1
 traitlets==4.0.0
