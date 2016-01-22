@@ -58,7 +58,7 @@ class RegistrationForm(forms.ModelForm):
         username = self.cleaned_data.get('username')
         if email and User.objects.filter(email=email).exclude(
                 username=username).count():
-            raise forms.ValidationError(u'Email address exists.')
+            raise forms.ValidationError(u'Email address taken.')
         return email.upper()
 
     def clean_username(self):

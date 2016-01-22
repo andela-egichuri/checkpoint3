@@ -17,7 +17,7 @@
         </div>
         <div id="login" class="col s12">
             {% if messages %}
-            <ul>
+            <ul class="card-panel blue lighten-4">
                 {% for key, value in messages.items %}
                 <li>{{ value }}</li>
                 {% endfor %}
@@ -51,7 +51,6 @@
             </form>
         </div>
          <div id="register" class="col s12">
-            {{ message }}
             <form action="#" method="POST">
                     {% csrf_token %} {{ reg_form.non_field_errors }}
                 <div class="row">

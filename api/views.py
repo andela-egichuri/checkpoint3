@@ -47,7 +47,7 @@ def index(request):
     if request.method == 'POST' and request.POST['src'] == 'login':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = request.POST['username']
+            username = request.POST['username'].upper()
             password = request.POST['password']
 
             user = authenticate(username=username, password=password)
@@ -63,9 +63,9 @@ def index(request):
             user = form.save()
             user.set_password(user.password)
             user.save()
-            content['messages'] = "Registration complete. You may now log in"
-        content['messages'] = form.errors
-
+            content['messages'] = {'Success': 'Registration complete. You may now log in'}
+        else:
+            content['messages'] = form.errors
     return render(request, 'index.html', content)
 
 

@@ -100,7 +100,7 @@
 
 
     </div>
-    <div class="col s12 center" ng-show="(bucketlists | filter:searchText).length == 0">
+    <div class="col s12 center" ng-if="bucketlists.length == 0" ng-show="(bucketlists | filter:searchText).length == 0">
       <div class="card-panel">
         No bucketlists matching the search term.
       </div>

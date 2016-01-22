@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework.validators import UniqueValidator
 from .models import Bucketlist, Item
 
 
@@ -53,7 +54,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         extra_kwargs = {
-            'password': {'write_only': True}}
+            'password': {'write_only': True},
+            'email': {
+                'validators': [UniqueValidator(queryset=User.objects.all())]
+            },
+        }
         fields = (
             'id', 'url', 'username', 'first_name',
             'last_name', 'email', 'password', 'bucketlists'
@@ -68,3 +73,14 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            if attr == 'password':
+                instance.set_password(value)
+            else:
+                setattr(instance, attr, value)
+        instance.email = validated_data.get('email', instance.email).upper()
+        instance.username = validated_data.get('username', instance.username).upper()
+        instance.save()
+        return instance
