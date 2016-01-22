@@ -4,7 +4,7 @@ from api.models import Bucketlist, Item
 
 
 class TestEndpoints(BaseTestCase):
-    """Class to test bucketlists"""
+    """Class to test api endpoints"""
 
     def test_bucketlist_creation(self):
         """Test the method to create a new bucket list.
@@ -121,22 +121,18 @@ class TestEndpoints(BaseTestCase):
         before_auth = self.client.get(self.items)
 
         # Force authentication
-        self.client.force_authenticate(self.user)
+        self.client.force_authenticate(user=self.user)
 
         # After authentication
+
         all_items = self.client.get(self.items)
         single_item = self.client.get(self.item_detail)
-
-        # Authenticate different user. T
-        self.client.force_authenticate(self.user_two)
-        different_user = self.client.get(self.items)
 
         self.assertEqual(before_auth.status_code, 403)
         self.assertEqual(all_items.status_code, 200)
         self.assertEqual(single_item.status_code, 200)
         self.assertEqual(single_item.data['name'], 'Initial Item')
         self.assertGreater(all_items.data['count'], 0)
-        self.assertEqual(different_user.data['count'], 0)
 
     def test_item_update(self):
         """Test the method to update a bucketlist item.
