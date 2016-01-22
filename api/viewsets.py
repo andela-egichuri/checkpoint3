@@ -9,13 +9,15 @@ from .serializers import UserSerializer, BucketlistSerializer, ItemSerializer
 
 
 class UserViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    """User model viewset"""
+    """User model viewset."""
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class BucketlistViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    """Bucketlist model viewset"""
+    """Bucketlist model viewset."""
+
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
     permission_classes = (IsOwner, permissions.IsAuthenticated,)
@@ -23,9 +25,11 @@ class BucketlistViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     search_fields = ('name')
 
     def perform_create(self, serializer):
+        """Save bucketlist owner as current user."""
         serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
+        """Limit bucketlists to those belonging to the current user"""
         user = self.request.user
         if user.is_active:
             return user.bucketlists.all()
@@ -33,7 +37,8 @@ class BucketlistViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
 
 class ItemViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    """Item model viewset"""
+    """Item model viewset."""
+
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = (IsOwner, permissions.IsAuthenticated,)

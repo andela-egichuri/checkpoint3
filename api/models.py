@@ -18,7 +18,7 @@ class Bucketlist(models.Model):
         ordering = ['-date_created']
 
     def __unicode__(self):
-        return '%s' % (self.name)
+        return '{0}'.format(self.name)
 
 
 class Item(models.Model):
@@ -36,4 +36,4 @@ class Item(models.Model):
         ordering = ['-date_created']
 
     def __unicode__(self):
-        return '%s' % (self.name)
+        return '{0}'.format(self.name)

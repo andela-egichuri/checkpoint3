@@ -51,10 +51,9 @@ def index(request):
             password = request.POST['password']
 
             user = authenticate(username=username, password=password)
-            if user:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponseRedirect('/dashboard/')
+            if user and user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/dashboard/')
         content['messages'] = {'Error': 'Error logging in'}
 
     if request.method == 'POST' and request.POST['src'] == 'reg':

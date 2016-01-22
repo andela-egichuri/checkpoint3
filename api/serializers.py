@@ -15,6 +15,7 @@ class ItemSerializer(serializers.ModelSerializer):
         )
 
     def get_fields(self, *args, **kwargs):
+        """Allow only selection of bucketlists owned by the user"""
         fields = super(ItemSerializer, self).get_fields(*args, **kwargs)
         if self.context:
             user = self.context['request'].user
@@ -65,7 +66,12 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-        """Enable password hashing on API endpoint"""
+        """Modify data before user creation
+
+        Enable password hashing on API endpoint
+        Convert email and username to uppercase
+
+        """
         user = User(
             email=validated_data['email'].upper(),
             username=validated_data['username'].upper()
@@ -75,6 +81,12 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
+        """Modify data when updating user
+
+        Enable password hashing on API endpoint
+        Convert email and username to uppercase
+
+        """
         for attr, value in validated_data.items():
             if attr == 'password':
                 instance.set_password(value)

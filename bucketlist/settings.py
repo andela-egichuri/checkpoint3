@@ -53,10 +53,10 @@ SWAGGER_SETTINGS = {
         'put',
         'delete'
     ],
-    'base_path':'mybl-app.herokuapp.com/api/docs/',
+    'base_path': 'mybl-app.herokuapp.com/api/docs/',
     'info': {
         'contact': 'eric.gichuri@andela.com',
-        'description': 'A simple bucketlist app '
+        'description': 'A simple bucketlist app',
         'license': 'Apache 2.0',
         'licenseUrl': 'http://www.apache.org/licenses/LICENSE-2.0.html',
         'title': 'Bucketlist App',

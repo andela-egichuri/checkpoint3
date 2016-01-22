@@ -61,5 +61,6 @@ class RegistrationForm(forms.ModelForm):
         return email.upper()
 
     def clean_username(self):
+        """Convert username to uppercase to enforce uniqueness"""
         username = self.cleaned_data.get('username')
         return username.upper()
