@@ -9,13 +9,13 @@ from rest_framework.reverse import reverse
 from .forms import LoginForm, RegistrationForm
 
 
-@login_required(login_url='/')
+@login_required
 def dashboard(request):
     """App dashboard"""
     return render(request, 'dashboard.html', {})
 
 
-@login_required(login_url='/')
+@login_required
 def bucketlists(request, bucketid):
     """Bucketlist Manipulation"""
     data = {}
@@ -65,26 +65,6 @@ def index(request):
             user.save()
         content['messages'] = form.errors
 
-    return render(request, 'index.html', content)
-
-
-def user_login(request):
-    """Handle login"""
-    content = {}
-    content['login_form'] = LoginForm()
-
-    if request.method == 'POST' and request.POST['src'] == 'login':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-
-            user = authenticate(username=username, password=password)
-            if user:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponseRedirect('/dashboard/')
-        content['messages'] = {'Error': 'Error logging in'}
     return render(request, 'index.html', content)
 
 

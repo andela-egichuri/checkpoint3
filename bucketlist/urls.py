@@ -25,5 +25,4 @@ urlpatterns = [
     url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^bucketlists/(\d+)/$', views.bucketlists, name='bucketlists'),
     url(r'^logout/', views.user_logout, name='logout'),
-    url(r'^auth/login/', views.user_login, name='login'),
 ]

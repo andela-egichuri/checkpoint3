@@ -17,7 +17,8 @@ class BaseTestCase(APITestCase):
         self.username = fake.user_name()
         self.password = fake.password()
         self.user = User.objects.create(
-            username=self.username, password=self.password, email=self.email
+            username=fake.user_name(), password=fake.password(),
+            email=fake.email()
         )
 
         self.initial_bucketlist = Bucketlist.objects.create(
