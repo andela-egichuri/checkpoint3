@@ -11,7 +11,6 @@ class LoginForm(forms.Form):
             attrs={'class': 'validate', 'autocomplete': 'off'}
         ))
     password = forms.CharField(
-        validators=[validators.MinLengthValidator(6)],
         max_length=32, widget=forms.PasswordInput(
             attrs={'class': 'validate'}
         ))

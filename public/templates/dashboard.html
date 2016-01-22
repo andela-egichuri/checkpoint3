@@ -61,7 +61,7 @@
           Looks like you haven't created any bucketlists yet.
         </div>
       </div>
-      <div class="col s12 center" ng-hide="searchText.length > 0">
+      <div class="col s12 center" ng-if="bucketlists.length > 0"  ng-hide="searchText.length > 0">
 
         <ul class="pagination">
           <li ng-click="setpage(page-1)" ng-class="previous == null ? 'disabled' : 'waves-effect'"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
@@ -100,7 +100,7 @@
 
 
     </div>
-    <div class="col s12 center" ng-if="bucketlists.length == 0" ng-show="(bucketlists | filter:searchText).length == 0">
+    <div class="col s12 center" ng-if="bucketlists.length > 0" ng-show="(bucketlists | filter:searchText).length == 0">
       <div class="card-panel">
         No bucketlists matching the search term.
       </div>
