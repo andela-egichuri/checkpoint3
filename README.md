@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/andela-egichuri/checkpoint3.svg?branch=master)](https://travis-ci.org/andela-egichuri/checkpoint3) [![Coverage Status](https://coveralls.io/repos/github/andela-egichuri/checkpoint3/badge.svg?branch=develop)](https://coveralls.io/github/andela-egichuri/checkpoint3?branch=develop) [![Code Issues](https://www.quantifiedcode.com/api/v1/project/f3c29d30fe484ec4b735155f3d53e4e6/snapshot/origin:develop:HEAD/badge.svg)](https://www.quantifiedcode.com/app/project/f3c29d30fe484ec4b735155f3d53e4e6)
+[![Build Status](https://travis-ci.org/andela-egichuri/checkpoint3.svg?branch=develop)](https://travis-ci.org/andela-egichuri/checkpoint3) [![Coverage Status](https://coveralls.io/repos/github/andela-egichuri/checkpoint3/badge.svg?branch=develop)](https://coveralls.io/github/andela-egichuri/checkpoint3?branch=develop) [![Code Issues](https://www.quantifiedcode.com/api/v1/project/f3c29d30fe484ec4b735155f3d53e4e6/snapshot/origin:develop:HEAD/badge.svg)](https://www.quantifiedcode.com/app/project/f3c29d30fe484ec4b735155f3d53e4e6)
 
 # Checkpoint 3
 Application - Django Powered BucketList Application
