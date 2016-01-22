@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    'rest_framework_swagger'
+    'rest_framework_swagger',
+    'rest_framework.authtoken'
 ]
 
 SWAGGER_SETTINGS = {
@@ -53,14 +54,22 @@ SWAGGER_SETTINGS = {
         'put',
         'delete'
     ],
-    'base_path': 'mybl-app.herokuapp.com/api/docs/',
     'info': {
         'contact': 'eric.gichuri@andela.com',
         'description': 'A simple bucketlist app',
-        'license': 'Apache 2.0',
-        'licenseUrl': 'http://www.apache.org/licenses/LICENSE-2.0.html',
         'title': 'Bucketlist App',
     },
+}
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
 }
 
 MIDDLEWARE_CLASSES = [

@@ -26,13 +26,20 @@ python manage.py migrate
 * Run the application
 `python manage.py runserver`
 
+## Features
+You can try out the app [here](http://mybl-app.herokuapp.com/)
+
 ## EndPoints
 Access to all endpoints except user login and registration requires authentication.
 
 The API endpoints are documented [here](http://mybl-app.herokuapp.com/api/docs/)
 
-## Features
-You can try out the app [here](http://mybl-app.herokuapp.com/)
+## Authentication
+This can be achieved through either Token or session authentication
+
+For token authentication a POST to `api/token-auth/` returns a token. The token
+ should be included in headers for all requests requiring authentication as
+ `Authorization: JWT <your_token>`
 
 ## Testing
 Tests are run from the root folder

@@ -8,6 +8,7 @@ Django==1.9.1
 django-rest-swagger==0.3.4
 django-toolbelt==0.0.1
 djangorestframework==3.3.2
+djangorestframework-jwt==1.7.2
 docopt==0.6.2
 drf-extensions==0.2.8
 fake-factory==0.5.3
@@ -21,6 +22,7 @@ pexpect==4.0.1
 pickleshare==0.5
 psycopg2==2.6.1
 ptyprocess==0.5
+PyJWT==1.4.0
 PyYAML==3.11
 requests==2.9.1
 simplegeneric==0.8.1
