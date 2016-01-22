@@ -29,6 +29,9 @@ class RegistrationForm(forms.ModelForm):
     conf_password = forms.CharField(
         max_length=32, widget=forms.PasswordInput(
             attrs={'class': 'validate'}))
+    password = forms.CharField(
+        max_length=32, widget=forms.PasswordInput(
+            attrs={'class': 'validate'}))
     src = forms.CharField(
         max_length=100, widget=forms.HiddenInput(
             attrs={'value': 'reg'}

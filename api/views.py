@@ -63,6 +63,7 @@ def index(request):
             user = form.save()
             user.set_password(user.password)
             user.save()
+            content['messages'] = "Registration complete. You may now log in"
         content['messages'] = form.errors
 
     return render(request, 'index.html', content)
