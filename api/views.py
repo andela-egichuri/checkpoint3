@@ -54,7 +54,7 @@ def index(request):
             if user and user.is_active:
                 login(request, user)
                 return HttpResponseRedirect('/dashboard/')
-        content['messages'] = {'Error': 'Error logging in'}
+        content['messages'] = form.errors
 
     if request.method == 'POST' and request.POST['src'] == 'reg':
         form = RegistrationForm(data=request.POST)
@@ -62,7 +62,9 @@ def index(request):
             user = form.save()
             user.set_password(user.password)
             user.save()
-            content['messages'] = {'Success': 'Registration complete. You may now log in'}
+            content['messages'] = {
+                'Success': 'Registration complete. You may now log in'
+            }
         else:
             content['messages'] = form.errors
     return render(request, 'index.html', content)

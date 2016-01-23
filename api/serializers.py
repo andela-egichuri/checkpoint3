@@ -93,6 +93,9 @@ class UserSerializer(serializers.ModelSerializer):
             else:
                 setattr(instance, attr, value)
         instance.email = validated_data.get('email', instance.email).upper()
-        instance.username = validated_data.get('username', instance.username).upper()
+
+        instance.username = validated_data.get(
+            'username', instance.username).upper()
+
         instance.save()
         return instance

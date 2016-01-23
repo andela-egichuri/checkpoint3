@@ -20,7 +20,12 @@ class TestEndpoints(BaseTestCase):
         with_auth_data = {'name': 'BL Name - With auth'}
         before_auth = self.client.post(self.bucketlists, no_auth_data)
         self.client.force_authenticate(self.user)
+        mybl = Bucketlist(name='Save Bucketlist', created_by=self.user)
+        Bucketlist.save(mybl)
+        bl = Bucketlist.objects.filter(name='Save Bucketlist')
         after_auth = self.client.post(self.bucketlists, with_auth_data)
+
+        self.assertEqual(bl.count(), 1)
         self.assertEqual(before_auth.status_code, 403)
         self.assertEqual(after_auth.status_code, 201)
         self.assertEqual(after_auth.data['name'], 'BL Name - With auth')
@@ -126,7 +131,6 @@ class TestEndpoints(BaseTestCase):
         self.client.force_authenticate(user=self.user)
 
         # After authentication
-
         all_items = self.client.get(self.items)
         single_item = self.client.get(self.item_detail)
 
@@ -152,7 +156,6 @@ class TestEndpoints(BaseTestCase):
             'bucketlist': self.initial_bucketlist.id
         }
         edit_item = self.client.put(self.item_detail, data)
-        # import ipdb; ipdb.set_trace()
         response = self.client.get(self.item_detail)
 
         self.assertEqual(edit_item.status_code, 200)
@@ -177,30 +180,37 @@ class TestEndpoints(BaseTestCase):
         self.assertGreater(count_before, after_delete.data['count'])
         self.assertEqual(count_before, count_after + 1)
 
-    # def test_adding_user(self):
-    #     """Test the endpoint for adding/registering users.
+    def test_adding_and_updating_user(self):
+        """Test the endpoint for adding and updating users.
 
-    #     """
-    #     data = {
-    #         'email': 'user@email.com',
-    #         'username': 'user',
-    #         'password': 'password'
-    #     }
+        """
+        data = {
+            'email': 'user@email.com',
+            'username': 'user',
+            'password': 'password'
+        }
 
-    #     # self.assertIsInstance(user, User)
-    #     before_add = self.client.get(self.users)
-    #     count_before = before_add.data['count']
+        before_add = self.client.get(self.users)
+        count_before = before_add.data['count']
 
-    #     add_user = self.client.post(self.users, data)
-    #     user_detail = reverse('user-detail', kwargs={'pk': add_user.data['id']})
-    #     added_user = self.client.get(user_detail)
-    #     import ipdb; ipdb.set_trace()
-    #     after_add = self.client.get(self.users)
-    #     count_after = after_add.data['count']
+        add_user = self.client.post(self.users, data)
+        user_detail = reverse('user-detail', kwargs={'pk': add_user.data['id']})
+        added_user = self.client.get(user_detail)
+        after_add = self.client.get(self.users)
+        count_after = after_add.data['count']
 
-    #     self.assertEqual(add_user.status_code, 201)
+        updated_data = {
+            'email': added_user.data['email'],
+            'username': 'username',
+            'password': 'password'
+        }
+        update_user = self.client.put(user_detail, updated_data)
 
-    #     self.assertLess(count_before, count_after)
+        after_update = self.client.get(user_detail)
+
+        self.assertEqual(add_user.status_code, 201)
+        self.assertLess(count_before, count_after)
+        self.assertEqual(after_update.data['username'], 'USERNAME')
 
 if __name__ == '__main__':
     unittest.main()

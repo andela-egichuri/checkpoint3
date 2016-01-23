@@ -42,7 +42,16 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'rest_framework_swagger',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django_nose',
+]
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
 ]
 
 SWAGGER_SETTINGS = {

@@ -6,7 +6,6 @@ from django.core import validators
 class LoginForm(forms.Form):
     """Fields for the login form"""
     username = forms.CharField(
-        validators=[validators.validate_slug],
         max_length=100, widget=forms.TextInput(
             attrs={'class': 'validate', 'autocomplete': 'off'}
         ))
@@ -53,12 +52,12 @@ class RegistrationForm(forms.ModelForm):
 
     def clean_email(self):
         """Ensure uniqueness of the user email"""
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get('email').upper()
         username = self.cleaned_data.get('username')
         if email and User.objects.filter(email=email).exclude(
                 username=username).count():
             raise forms.ValidationError(u'Email address taken.')
-        return email.upper()
+        return email
 
     def clean_username(self):
         """Convert username to uppercase to enforce uniqueness"""
