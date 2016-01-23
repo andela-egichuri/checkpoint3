@@ -33,7 +33,7 @@
                 <div class="row">
                 <div class="col s12 m8 offset-m2">
                     <div class="input-field col s12">
-                      <input id="b_name" type="text" ng-model="bl_name" class="validate" required length="100">
+                      <input id="b_name" type="text" ng-model="bl_name" class="validate" required length="30" maxlength="30">
                       <label for="b_name">Bucketlist Name</label>
                     </div>
                     <div class="input-field col s12">
@@ -113,7 +113,7 @@
           <div class="modal-content">
             <h5>Edit Bucketlist</h5>
             <div class="input-field">
-              <input id="bl_edit_name" type="text" class="validate" ng-model="bl_edit" placeholder="" required length="100"/>
+              <input id="bl_edit_name" type="text" class="validate" ng-model="bl_edit" placeholder="" required length="30" maxlength="30"/>
               <label for="bl_edit_name" class="active">New Bucketlist Name</label>
               <input id="bl_edit_id" type="hidden" class="validate" ng-model="bl_edit_id" required />
 
