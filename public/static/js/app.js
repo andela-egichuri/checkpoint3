@@ -9,7 +9,6 @@ app.config(function (RestangularProvider, $interpolateProvider, $httpProvider, $
       enabled: true,
       requireBase: false
     });
-    // $resourceProvider.defaults.stripTrailingSlashes = false;
     RestangularProvider.setBaseUrl('/api');
     RestangularProvider.setRequestSuffix('/');
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
@@ -26,28 +25,6 @@ app.config(function (RestangularProvider, $interpolateProvider, $httpProvider, $
       }
       return extractedData;
     });
-    // $routeProvider.
-    //         when('/', {
-    //             templateUrl : 'static/views/bucketlists.html',
-    //             controller  : 'dashboardCtrl'
-    //         }).
-    //         when('/bucketlist/:bid', {
-    //             templateUrl : 'static/views/bucketlist.html',
-    //             controller  : 'BucketlistCtrl'
-    //         })
-
-    // $urlRouterProvider.otherwise('/bucketlists');
-    // $stateProvider
-    //   .state('bucketlists', {
-    //     url: '/bucketlists',
-    //     templateUrl: 'static/views/bucketlists.html',
-    //     controller: 'dashboardCtrl',
-    //   })
-    //   .state('bucketlist', {
-    //     url: 'bucketlists/:id',
-    //     templateUrl: 'static/views/bucketlists.html',
-    //     controller: 'BucketlistCtrl',
-    //   })
 
   });
 
@@ -205,6 +182,7 @@ app.controller('dashboardCtrl', function($scope, Restangular, $window) {
     $scope.save_edit = function () {
         value = $scope.bl_edit_id;
         tosave = Restangular.one('bucketlists', value);
+        bucketlist = Restangular.all('bucketlists');
         tosave.name = $scope.bl_edit;
         tosave.put().then(function (result) {
             $scope.refresh();
