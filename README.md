@@ -32,7 +32,7 @@ You can try out the app [here](http://mybl-app.herokuapp.com/)
 ## EndPoints
 Access to all endpoints except user login and registration requires authentication.
 
-The API endpoints are documented [here](http://mybl-app.herokuapp.com/api/docs/)
+The API endpoints are documented [here](http://mybl-app.herokuapp.com/api/docs/#!/api)
 
 ## Authentication
 This can be achieved through either Token or session authentication

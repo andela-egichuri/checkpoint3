@@ -198,7 +198,6 @@ class TestEndpoints(BaseTestCase):
         added_user = self.client.get(user_detail)
         after_add = self.client.get(self.users)
         count_after = after_add.data['count']
-
         updated_data = {
             'email': added_user.data['email'],
             'username': 'username',
@@ -210,7 +209,7 @@ class TestEndpoints(BaseTestCase):
 
         self.assertEqual(add_user.status_code, 201)
         self.assertLess(count_before, count_after)
-        self.assertEqual(after_update.data['username'], 'USERNAME')
+        self.assertEqual(after_update.data['username'], 'username')
 
 if __name__ == '__main__':
     unittest.main()

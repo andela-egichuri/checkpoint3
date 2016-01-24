@@ -47,14 +47,17 @@ def index(request):
     if request.method == 'POST' and request.POST['src'] == 'login':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = request.POST['username'].upper()
+            username = request.POST['username'].lower()
             password = request.POST['password']
 
             user = authenticate(username=username, password=password)
             if user and user.is_active:
                 login(request, user)
                 return HttpResponseRedirect('/dashboard/')
-        content['messages'] = form.errors
+        if len(form.errors) == 0:
+            content['messages'] = {'Error': 'Error logging in'}
+        else:
+            content['messages'] = form.errors
 
     if request.method == 'POST' and request.POST['src'] == 'reg':
         form = RegistrationForm(data=request.POST)

@@ -51,14 +51,12 @@ class UserSerializer(serializers.ModelSerializer):
         read_only=True,
         view_name='bucketlist-detail'
     )
+    email = serializers.EmailField(required=True)
 
     class Meta:
         model = User
         extra_kwargs = {
             'password': {'write_only': True},
-            'email': {
-                'validators': [UniqueValidator(queryset=User.objects.all())]
-            },
         }
         fields = (
             'id', 'url', 'username', 'first_name',
@@ -73,8 +71,8 @@ class UserSerializer(serializers.ModelSerializer):
 
         """
         user = User(
-            email=validated_data['email'].upper(),
-            username=validated_data['username'].upper()
+            email=validated_data['email'].lower(),
+            username=validated_data['username'].lower()
         )
         user.set_password(validated_data['password'])
         user.save()
@@ -92,10 +90,10 @@ class UserSerializer(serializers.ModelSerializer):
                 instance.set_password(value)
             else:
                 setattr(instance, attr, value)
-        instance.email = validated_data.get('email', instance.email).upper()
+        instance.email = validated_data.get('email', instance.email).lower()
 
         instance.username = validated_data.get(
-            'username', instance.username).upper()
+            'username', instance.username).lower()
 
         instance.save()
         return instance
