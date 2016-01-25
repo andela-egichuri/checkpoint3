@@ -9,13 +9,12 @@ app.config(function (RestangularProvider, $interpolateProvider, $httpProvider, $
       enabled: true,
       requireBase: false
     });
+
     RestangularProvider.setBaseUrl('/api');
     RestangularProvider.setRequestSuffix('/');
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
       var extractedData;
-      // .. to look for getList operations
       if (operation === "getList") {
-        // .. and handle the data and meta data
         extractedData = data.results;
         extractedData.next = data.next;
         extractedData.previous = data.previous;
@@ -27,7 +26,6 @@ app.config(function (RestangularProvider, $interpolateProvider, $httpProvider, $
     });
 
   });
-
 
 app.controller('bucketlistCtrl', function($scope, Restangular, $window) {
     bid = $scope.bid

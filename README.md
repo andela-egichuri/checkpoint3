@@ -27,7 +27,12 @@ python manage.py migrate
 `python manage.py runserver`
 
 ## Features
-You can try out the app [here](http://mybl-app.herokuapp.com/)
+The app allows you to:
+ - Create an account and login.
+ - Create bucketlists
+ - Add items to the bucketlists.
+
+You can try it out [here](http://mybl-app.herokuapp.com/)
 
 ## EndPoints
 Access to all endpoints except user login and registration requires authentication.
@@ -35,6 +40,8 @@ Access to all endpoints except user login and registration requires authenticati
 The API endpoints are documented [here](http://mybl-app.herokuapp.com/api/docs/#!/api)
 
 ## Authentication
+A user can only view bucketlists and bucketlist items they've created.
+An exception for this is the admi, who can view all items
 This can be achieved through either Token or session authentication
 
 For token authentication a POST to `api/token-auth/` returns a token. The token

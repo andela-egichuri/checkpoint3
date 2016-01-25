@@ -1,3 +1,8 @@
+@font-face {
+    font-family: JenniferLynne;
+    src: url(JenniferLynneBold.ttf);
+}
+
 body {
     display: flex;
     min-height: 100vh;
@@ -5,8 +10,19 @@ body {
 }
 
 main {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
+}
+
+header, footer {
+  z-index: 10;
+}
+.page {
     background-image: url('../img/confectionary.png');
+}
+
+.home {
+    background: url('../img/bg.jpg') center center;
+    background-size: cover;
 }
 
 .dropdown-content{
@@ -90,4 +106,38 @@ main {
 
 input {
   padding-left: 5px !important;
+}
+
+footer.page-footer {
+  margin-top: 0;
+}
+
+
+.hometext {
+  font-family: JenniferLynne;
+}
+
+.row-main{
+  position:relative;
+  margin:0;
+  padding:0;
+  zoom:1;
+}
+.row:after, .row-main:after, .row:before, .row-main:before{
+  content:'';
+  display:table;
+  clear:both
+}
+.row-main{
+  margin:0 auto;
+  width:870px
+}
+
+.col-content {
+    background: url("../img/bg-content.png");
+    height: 100%;
+}
+
+.hometext img {
+  max-width: 15%;
 }
