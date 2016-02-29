@@ -1,0 +1,96 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html ng-app="bucketlistApp">
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+
+  <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}"  media="screen,projection"/>
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style type="text/css">
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
+  <title>My Bucketlist - {% block title %}{% endblock %}</title>
+</head>
+
+<body ng-cloak>
+  <header>
+
+    {% block toolbar %}
+    <nav class="blue lighten-1">
+      <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">My Bucketlist</a>
+        <div class="row">
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+          <div >
+            <ul id="dropdown1" class="dropdown-content">
+              <li class="divider"></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+              <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Welcome, {{ user.username }}<i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+              <li><a class="dropdown-button" href="#!">Welcome, {{ user.username }}</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+
+  </header>
+
+  {% block fullpage %}
+
+  <main class="page">
+
+    <div class="container">
+     <div class="section">
+      {% block content %}
+
+      {% endblock %}
+    </div>
+  </div>
+</main>
+{% endblock %}
+<footer class="page-footer blue-grey lighten-2">
+  <div class="container">
+    <div class="row">
+
+    </div>
+  </div>
+  <div class="footer-copyright white-text">
+    <div class="container">
+      <div class="left">
+        <small><em> Bucketlist: A list of things to do before you die. Comes from the term "kicked the bucket" (Urban Dict)</em></small>
+      </div>
+      <div class="right">
+        By <a class="black-text" target="_blank" href="https://github.com/andela-egichuri">Eric G</a> from <a target="_blank" class="black-text" href="http://andela.co">Andela</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+  $('.modal-trigger').leanModal();
+  $('.button-collapse').sideNav();
+});
+
+
+</script>
+<script src="{% static 'js/angular.min.js' %}"></script>
+<script src="{% static 'js/angular-resource.min.js' %}"></script>
+<script src="{% static 'js/angular-route.min.js' %}"></script>
+<script src="{% static 'js/underscore.js' %}"></script>
+<script src="{% static 'js/restangular.min.js' %}"></script>
+<script src="{% static 'js/angular-ui-router.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

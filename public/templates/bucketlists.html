@@ -1,0 +1,101 @@
+{%extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<span ng-init = "bid = '{{ bucketid }}'">
+  <div ng-controller="bucketlistCtrl" >
+    <div class="section card z-depth-3">
+      <div class="row">
+        <div class="col s12 m10 offset-m1">
+          <div class="">
+            <div class="card-title center">Bucketlist: [[bucketlist_name]] </div>
+            <div class="col s12 m10">
+              <table class="striped">
+                <thead class="small-text" ng-if="bucketlist.length > 0">
+                  <tr>
+                    <th data-field="name"></th>
+                    <th data-field="date_created" class="small-text">Date Created</th>
+                    <th data-field="date_modified" class="small-text">Last Modified</th>
+                    <th data-field="actions"></th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="item in bucketlist">
+                  <td ng-class="item.done == 1 ? 'line-through' : ''">[[ item.name ]]</td>
+                  <td class="small-text" ng-class="item.done == 1 ? 'line-through' : ''">[[ item.date_created | date: 'medium']]</td>
+                  <td class="small-text" ng-class="item.done == 1 ? 'line-through' : ''">[[ item.date_modified | date: 'medium' ]]</td>
+                  <td >
+                    <span ng-if="item.done == 1">
+                      <a href="" ng-click="status(item.id, item.done)" class="done tooltipped" data-position="top" data-delay="50" data-tooltip="Mark as Not Done"><i class="tiny material-icons">done</i></a></span>
+                      <span ng-if="item.done == 0">
+                        <a href="" ng-click="status(item.id, item.done)" class="tooltipped" data-position="top" data-delay="50" data-tooltip="Mark as Done"><i class="tiny material-icons">clear</i></a></span> |
+                        <span><a href="" ng-click="edititem(item.id)" class="tooltipped" data-position="top"  data-delay="50" data-tooltip="Edit"><i class="tiny material-icons">mode_edit</i></a> </span> |
+                        <span> <a href="" ng-click="delete(item.id)" class="delete" data-position="top" data-delay="50" data-tooltip="Delete"><i class="tiny material-icons">delete</i></a> </td>
+                        </tr>
+                        <tr ng-if="bucketlist.length == 0">
+                          <td colspan="4">
+                            <div class="section col s12 center"> <span class="btn-floating orange lighten-3"><i class="small material-icons">warning</i></span>
+                              No items in this bucketlist
+                            </div>
+                          </td>
+                        </tr>
+
+
+                      </table>
+                      <br><br>
+                      <form ng-submit="add()">
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="input-field col s8 m6 offset-m2">
+                              <input id="item_name" type="text" ng-model="it_name" class="validate" required length="30" maxlength="30">
+                              <label for="item_name">New Item</label>
+                            </div>
+                            <div class="input-field col s4">
+                              <input type="submit" value="Save" class="waves-effect waves-green btn"/>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col m2">
+                      <p class="tiny-text"><i class="done tiny material-icons">done</i> Done </p>
+                      <p class="tiny-text"><a href="" ><i class="tiny material-icons">clear</i> </a> Not yet done </p>
+                      <p class="tiny-text"><a href="" ><i class="tiny material-icons">mode_edit</i></a> Edit</p>
+                      <p class="tiny-text"><i class="delete tiny material-icons">delete</i> Delete</p>
+                    </div>
+                    <div id="itemmodal" class="modal modal-custom">
+                      <div class="col s12">
+                        <form ng-submit="saveitem()">
+                          <div class="modal-content">
+                            <h5>Edit Bucketlist</h5>
+                            <div class="input-field col s6">
+                              <input id="item_name" type="text" class="validate" ng-model="item_edit" required length="30" maxlength="30"/>
+                              <label for="item_name" class="active"></label>
+                              <input id="item_id" type="hidden" class="validate" ng-model="item_edit_id" required />
+
+                            </div>
+                            <div class="input-field col s6">
+                              <input type="checkbox" id="donestatus" ng-model="donestatus" ng-checked="[[donestatus]]"/>
+                              <label for="donestatus">Done?</label>
+                            </div>
+                            <div class="col s8">
+                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <div class="input-field">
+                              <input type="submit" value="Save"  class="waves-effect waves-green btn"/>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+        {% endblock %}
